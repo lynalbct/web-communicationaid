@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="main.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+  <div class="container">
+    <script src="{{url_for('static',filename='js/app.js')}}"></script>
+    <form method="post" action = "/login">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" id="username"  placeholder="Enter Username" name="uname" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id="password"  placeholder="Enter Password" name="psw" required>
+    <button type="submit" onclick="login();" class="btn btn-success">Login</button>
+      </form>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+  </div>
+  <div id="erroralert" class="alert alert-danger" role="alert" style="display: none;"></div>
+  <script src="js/jQuery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
