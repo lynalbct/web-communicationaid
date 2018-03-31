@@ -14,7 +14,7 @@ activity = db.Table('activity',
 report = db.Table('report',
                     db.Column('item_num', db.Integer, db.ForeignKey('items.item_num')),
                     db.Column('prog_num', db.Integer, db.ForeignKey('progress.prog_num'))
-                  )
+                 )
 
 class Account(db.Model):
     acc_id = db.Column(db.Integer, primary_key=True)
@@ -63,7 +63,8 @@ class Child(db.Model):
     lname_c = db.Column(db.String(80))
     bday_c = db.Column(db.Date)
     diagnosis = db.Column(db.String(50))
-    pers = db.relationship('Personal', backref='child', lazy='dynamic')
+    pers = db.relationship('Personal', backref='Child', lazy='dynamic')
+    Class = db.relationship('Class', backref='Child', lazy ='dynamic')
 
     def __init__(self, fname_c, lname_c, bday_c, diagnosis):
         self.fname_c = fname_c
@@ -82,6 +83,7 @@ class Teacher(db.Model):
     specialty = db.Column(db.String(120))
     tel_num = db.Column(db.BigInteger)
     add_t = db.Column(db.String(120))
+    Class = db.relationship('Class', backref='Teacher', lazy ='dynamic')
 
     def __init__(self, fname_t, lname_t, bday_t, specialty, tel_num, add_t):
         self.fname_t = fname_t
@@ -133,9 +135,12 @@ class Logs(db.Model):
         return '<Logs %r>' % self.clicks
 
 class Class(db.Model):
-    class_num = db.Column(db.Integer, primary_key=True)
+    class_id = db.Column(db.Integer, primary_key=True)
     class_name = db.Column(db.String(50))
     ed = db.relationship('Educational', backref='edu', lazy='dynamic')
+    child_id = db.Column(db.Integer, db.ForeignKey('Child.c_id'))
+    t_id = db.Column(db.Integer, db.ForeignKey('Teacher.t_id'))
+
 
     def __init__(self, class_name):
         self.class_name = class_name
@@ -199,6 +204,8 @@ class Audio(db.Model):
 
     def __repr__(self):
         return '<Audio %r>' % self.aud
+
+
 
 @app.route('/')
 def hello_world():

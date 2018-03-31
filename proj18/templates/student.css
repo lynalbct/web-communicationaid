@@ -1,0 +1,60 @@
+body{
+    background-image: url("background.png");
+    background-size: 100%;
+}
+/* Sidebar */
+#sidebar-wrapper{
+    z-index: 1;
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    overflow-y: hidden;
+    background: #2C3E50;
+
+}
+
+/* Main content */
+#page-content-wrapper{
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+
+}
+
+/* Change sidebar width to display */
+#wrapper-menuDisplayed #sidebar-wrapper{
+    width: 250px;
+}
+
+#wrapper-menuDisplayed #page-content-wrapper{
+   padding-left: 250px;
+}
+
+/* Sidebar styling */
+.sidebar-nav{
+    padding: 0;
+    list-style: none;
+}
+.sidebar-nav li{
+    text-indent: 20px;
+    line-height: 40px;
+}
+.sidebar-nav li a{
+    display: block;
+    text-decoration: none;
+    color: #ddd;
+}
+.sidebar-nav li a:hover{
+    background: #16A085;
+}
+
+#save-btn{
+    background: #55acee;
+    width: 320px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin:0 auto;
+    

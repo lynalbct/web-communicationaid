@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<title>Communication Aid</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="studenttable.css">
+    <link rel="stylesheet" href="edit.css">
+
+<style>
+    body {font-family: "Times New Roman", Georgia, Serif;}
+
+    h1,h2,h3,h4,h5,h6 {
+        font-family: "Playfair Display";
+        letter-spacing: 5px;
+        }
+
+    input[type=text] {
+			width: 550px;
+			box-sizing: border-box;
+			border: 2px solid #ccc;
+			border-radius: 4px;
+			font-size: 16px;
+			background-color: whitesmoke;
+			background-position: 10px 10px;
+			background-repeat: no-repeat;
+			padding: 12px 20px 12px 40px;
+			-webkit-transition: width 0.4s ease-in-out;
+			transition: width 0.4s ease-in-out;
+		}
+
+		input[type=text]:focus {
+			width: 95%;
+        }
+</style>
+
+<body>
+
+
+<!-- Page content -->
+<div class="w3-content" id="sched">
+
+    <div class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px"><br>
+        <center>
+            <div style="width:1000px; height: 400px">
+                <div id="edit">
+
+                    <form>
+                        <h2> Edit Student </h2>
+                        <input type="text" id="fName" placeholder="First Name" />
+                        <input type="text" id="mName" placeholder="Middle Name" />
+                        <input type="text" id="lName" placeholder="Last Name" />
+                        <input type="text" id="Birthday" placeholder="Birthday" />
+                        <input type="text" id="Class" placeholder="Class" />
+                        <input type="button" id="save-btn" onclick="editstudent();" value="Save" />
+                    </form>
+
+                </div>
+            </div>
+        </center>
+    </div>
+
+                <script src="p.js"></script>
+                <script src="jQuery-2.1.4.min.js"></script>
+                <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
