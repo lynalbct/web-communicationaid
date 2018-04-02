@@ -101,14 +101,14 @@ def deleteClass():
 @app.route('/students', methods=['GET', 'POST'])
 def students():
     db.create_all()
-    result1 = students.query.order_by(students.c_id)
+    result1 = Child.query.order_by(Child.c_id)
     return render_template('studenttable.html', students=result1, )
 
 
 @app.route('/addstudents', methods=['POST', 'GET'])
 def addstudents():
     if request.method == 'POST':
-            students = students(request.form['c_id'])
+            students = Child(request.form['c_id'])
             db.session.add(students)
             db.session.commit()
             return redirect(url_for('studenttable'))
@@ -120,13 +120,13 @@ def addstudents():
 
 @app.route('/deletestudent<c_id>', methods=['GET', 'POST'])
 def deletestudent():
-    students = students.query.order_by(students.c_id)
+    students = Child.query.order_by(Child.c_id)
     if request.method == 'POST':
         Store = request.form['storage']
-        result = students.query.filter_by(c_id=Store).first()
+        result = Child.query.filter_by(c_id=Store).first()
         db.session.delete(result)
         db.session.commit()
-        students = students.query.order_by(students.c_id)
+        students = Child.query.order_by(students.c_id)
         return redirect(url_for('students', students=students))
     else:
         return redirect(url_for('students', students=students))

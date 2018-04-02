@@ -38,7 +38,7 @@
                                     <td><a class="btn btn-sm btn-success" href="/editstudents{{ Child.c_id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                     <td><a class="btn btn-sm btn-danger confirmation" href="/deletestudent/{{ Child.c_id }}"><span class="glyphicon glyphicon-trash"></span></a></td>
                                     <td style="text-align: center">{{ Child.c_id }}</td>
-                                    <td style="text-align: center">{{ Child.fname_c }}</td>
+                                    <td style="text-align: center">{{ Child.fname_c }}{{Child.lname_c}}</td>
 
                                 </tr>
                             {% endfor %}
