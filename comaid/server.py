@@ -1,18 +1,18 @@
-from flask import Flask, jsonify, request,render_template, make_response, flash
+from flask import Flask, jsonify, request,render_template, make_response, flash, Blueprint
 from flask import render_template, redirect, url_for, flash, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from model import *
 from app import *
+import os
 
-
+server = Flask(__name__)
 server.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:walakokahibaw@localhost/db'
 server.config['SECRET_KEY'] = 'hard to guess string'
 db = SQLAlchemy(server)
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-server = Flask(__name__)
 
-@server.route('/login', methods=['GET', 'POST'])
+@server.route('/', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
 		user = Account.query.filter_by(username= request.form['username']).first()
@@ -35,7 +35,5 @@ def signup():
 	if request.method == 'POST':
 		return render_template('signup.html')
 
-
-
 if __name__ == "__main__":
-	server.run(port=8000, debug=True, host=localhost)
+	server.run(port=8000, debug=True, host='localhost')

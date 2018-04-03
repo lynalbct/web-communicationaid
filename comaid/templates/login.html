@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pick-a-Talk</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../templates/js/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="../templates/js/freelancer.min.css" rel="stylesheet">
+
+</head>
+                    <h2>Login</h2>
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-4">
+                              <form>
+                            <label>Username:</label>
+                            <input type="text" class="form" id="username" placeholder="username" required>
+                            <label>Password:</label>
+                            <input type="password" class="form" id="password" placeholder="password" required><br>
+                           <button type="Submit" class="btn btn-success" onclick="login(form);">Submit</button>
+                           </form>
+                        </div>
+               </div>
+
+<script >
+function login(form) {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                alert(username)
+                $.ajax({
+                    url: "http://127.0.0.1:5000/login",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        'username': username,
+                        'password': password
+                    }),
+                    method: "GET",
+                    dataType: "json",
+                    crossDomain: true,
+                    headers: {
+                        'Authorization' : 'Basic ' + btoa(username + ':' + password)
+
+                    },
+                    success: function(resp) {
+                         if (resp.status == 'ok'){
+                            alert('login success!');
+                            // console.log("success");
+                            localStorage.setItem('token', resp.token);
+                            localStorage.setItem('acc_type', resp.acc_type);
+                            localStorage.setItem('auth.id', 'Basic ' + btoa(username + ':' + password));
+                            window.location.replace('dashboard.html');
+                        
+                    }},
+                    error: function (e) {
+                      alert(e)
+                        console.log('error', username, password);
+                        // alert('Invalid credentials!');
+                        window.location.href='/login';
+                    },
+                    complete: function (jqXHR) {
+                        if (jqXHR.status == '401') {
+                            console.log(jqXHR.status)
+                        }
+                    }
+                })
+            };
+        
+
+</script>
+    <script src="../static/js/jQuery-2.1.4.min.js"></script>
+     <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="../static/js/jqBootstrapValidation.js"></script>
+    <script src="../static/js/contact_me.js"></script>
+<!--     <script src="app.js"></script> -->
+
+</body>
+
+</html>

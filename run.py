@@ -1,4 +1,4 @@
-from communicationaid import app
+from comaid import app
 
 
 if __name__ == '__main__':
