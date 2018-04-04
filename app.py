@@ -46,13 +46,24 @@ def addClass():
 ################################################################
 
 
-@app.route('/deleteClass/<class_name>', methods=['POST', 'GET'])
-def deleteClass(class_name):
-    if request.method == 'POST':
-        Class = Class.query.filter_by(class_name=class_name).first()
-        db.session.delete(Class)
-        db.session.commit()
-    return redirect(url_for('class'))
+@app.route('/deleteClass/<class_num>', methods=['POST', 'GET'])
+def deleteClass(class_num):
+    class_ = Class.query.filter_by(class_num=class_num).first()
+    print class_
+    class_ = db.session.merge(class_)
+    db.session.delete(class_)
+    db.session.commit()
+    return redirect(url_for('manageclass'))
+
+
+################################################################
+
+
+@app.route('/classPage/<class_name>')
+def classPage(class_name):
+    classes = Class.query.filter_by(class_name=class_name).first()
+    students = Child.query.filter_by(c_id=Child.c_id).all()
+    return render_template('classPage.html', Class=classes, students=students)
 
 
 ################################################################
@@ -61,7 +72,7 @@ def deleteClass(class_name):
 @app.route('/students')
 def students():
     students = Child.query.order_by(Child.c_id).all()
-    return render_template('students.html', students=students)
+    return render_template('students.html', Child=students)
 
 
 ################################################################
@@ -71,18 +82,24 @@ def students():
 def addstudents():
     if request.method == 'POST':
 
-        student = Child(Child.c_id).first()
-        student.c_id = request.form['c_id']
-        student.fname_c = request.form['fname_c']
-        student.lname_c = request.form['lname_c']
+        #student = Child(Child.c_id).first()
+        student = Child(fname_c=request.form['fname_c'], lname_c=request.form['lname_c'], bday_c=None, diagnosis=None)
+        #student.c_id = request.form['c_id']
+        #student.fname_c = request.form['fname_c']
+        #student.lname_c = request.form['lname_c']
 
 
-        student = db.session.merge(student)
+        #student = db.session.merge(student)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('students', student=student))
     else:
-        return render_template('addstudent.html')
+        ch = Child.query.order_by(Child.c_id.desc()).first()
+        d = 1
+        if ch:
+            d = int(ch.c_id) + 1
+
+        return render_template('addstudent.html', d=d)
      
 
 ################################################################
@@ -90,11 +107,13 @@ def addstudents():
 
 @app.route('/deletestudent/<c_id>', methods=['POST', 'GET'])
 def deletestudent(c_id):
-    if request.method == 'POST':
-        students = Child.query.filter_by(c_id=c_id).first()
-        db.session.delete(students)
-        db.session.commit()
-    return redirect(url_for('students', class_name=class_name))
+    students = Child.query.filter_by(c_id=c_id).first()
+    students = db.session.merge(students)
+    db.session.delete(students)
+    db.session.commit()
+
+    students_0 = Child.query.order_by(Child.c_id).all()
+    return redirect(url_for('students', students=students_0))
 
 
 ################################################################

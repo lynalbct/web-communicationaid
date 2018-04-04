@@ -63,12 +63,12 @@ class Child(db.Model):
     c_id = db.Column(db.Integer, primary_key=True)
     fname_c = db.Column(db.String(80))
     lname_c = db.Column(db.String(80))
-    bday_c = db.Column(db.Date)
+    bday_c = db.Column(db.Date, nullable=True)
     diagnosis = db.Column(db.String(50))
     pers = db.relationship('Personal', backref='child', lazy='dynamic')
 
 
-    def __init__(self, fname_c, lname_c, bday_c, diagnosis):
+    def __init__(self, fname_c, lname_c, bday_c=None, diagnosis=None):
         self.fname_c = fname_c
         self.lname_c = lname_c
         self.bday_c = bday_c

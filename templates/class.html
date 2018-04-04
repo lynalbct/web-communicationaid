@@ -14,45 +14,55 @@
     <link rel="stylesheet" href="{{ url_for('.static', filename='css/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ url_for('.static', filename='css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="student.css">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('.static', filename='js/jquery.dataTables.min.js') }}">
+
 
 </head>
 
-{% block content %}
 <body>
     <div class=" bgimg container-fluid">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <div class="card">
                     <br><br><br><br><br><br><br>
-                    <table class="table table-hover">
+                    <table class="table table-striped table-bordered table-hover" id="mytable">
                         <thead>
                             <tr>
-                                <th colspan="1" style="text-align: center">Action</th>
-                                <th style="text-align: center">Class Name</th>
+                                <th >Action</th>
+                                <th >Class Name</th>
                             </tr>
                         </thead>
+
                         <tbody>
 
-                            {% for Class in Class %}
-                                <tr>
 
-                                    <td><a class="btn btn-sm btn-danger confirmation" href="/deleteClass/{{ class.class_num }}"><span class="glyphicon glyphicon-trash"></span></a></td>
-                                    <td style="text-align: center">{{ Class.class_name }}</td>
+                    <form method="post" action = "/addClass">
+                        
+                            {% for Class in manageclass %}
 
-                                </tr>
+                    <tr>
+                        <td>
+                            <a class="btn btn-sm btn-danger confirmation" href="/deleteClass/{{ Class.class_num }}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>  
+                        <td style="cursor.pointer">
+                            <a href="/classPage/{{Class.class_name}}" style="text-align: center">{{ Class.class_name}}
+                        </td>    
                             {% endfor %}
-                        </tbody>
+                    </form>
+                    </tbody>
+
                     </table>
-                    <div class="col-md-6">
+                    <br>
+                    <br>                
+                   <div class="col-md-6">
                         <a class="btn btn-primary pull-left" href="{{ url_for('addClass') }}">Add</a>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
     </div>
 
-{% endblock %}
 
     <script type="text/javascript">
         var elems = document.getElementsByClassName('confirmation');
@@ -63,5 +73,14 @@
             elems[i].addEventListener('click', confirmIt, false);
         }
     </script>
+
+
+    <script type="text/javascript">
+        $(document).ready( function () {
+        $('#myTable').DataTable();
+}       );
+    </script>
+
+
 </body>
 </html>
