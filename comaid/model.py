@@ -24,7 +24,7 @@ class Account(db.Model):
     acc_type = db.Column(db.String(20), unique=True)
     username = db.Column(db.String(50), unique=True)
     email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(60), unique=True)
+    password = db.Column(db.String(150), unique=True)
 
     def __init__(self, acc_type, username, email, password):
         self.acc_type = acc_type

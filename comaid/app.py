@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from flask_basicauth import BasicAuth
 from flask_cors import CORS
+import uuid
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -69,8 +70,8 @@ def getoneuser(acc_id):
 @app.route('/user', methods=['POST'])
 def createuser():
 	data = request.get_json()
-	hashed_password = generate_password_hash(data['password'], methods='sha256')
-	new_acc = Account(acc_type=str(uuid.uuid4()), username = data['username'], password = hashed_password)
+	hashed_password = generate_password_hash(data['password'], method='sha256')
+	new_acc = Account(acc_type=str(uuid.uuid4()), username = data['username'],email=data['email'], password = hashed_password)
 	db.session.add(new_acc)
 	db.session.commit()
 	return jsonify({'message' : 'New user created.'})
@@ -97,16 +98,16 @@ def login_api():
 	# user = Account.query.filter_by(username=request.form['username']).first()
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
-		return make_response('unauthenticated', 401, {'WWW-Authenticate' : 'Login required'})
+		return make_response('un authenticated', 401, {'WWW-Authenticate' : 'Login required'})
 	user = Account.query.filter_by(username=auth.username).first()
 
 	if not user:
 		return jsonify('User not found', 401, {'WWW-Authenticate' : 'Login required'})
 
 	if check_password_hash(user.password,auth.password):
-		token = jwt.encode({'account_id': Account.account_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},app.config['SECRET_KEY'])
+		token = jwt.encode({'account_id': Account.acc_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},app.config['SECRET_KEY'])
 		return jsonify({'status': 'ok', 'token': token.decode('UTF-8'), 'account_type': Account.acc_type})
-	return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Login required'})
+	return make_response('Could not verify', {'WWW-Authenticate' : 'Login required'})
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
