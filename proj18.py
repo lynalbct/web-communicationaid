@@ -195,8 +195,6 @@ class Images(db.Model):
 
     def __repr__(self):
         return '<Images %r>' % self.img
-
-
 class Audio(db.Model):
     aud_id = db.Column(db.Integer, primary_key=True)
     aud = db.Column(db.String(50))

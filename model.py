@@ -67,6 +67,7 @@ class Child(db.Model):
     diagnosis = db.Column(db.String(50))
     pers = db.relationship('Personal', backref='child', lazy='dynamic')
 
+
     def __init__(self, fname_c, lname_c, bday_c, diagnosis):
         self.fname_c = fname_c
         self.lname_c = lname_c
@@ -138,6 +139,7 @@ class Class(db.Model):
     class_num = db.Column(db.Integer, primary_key=True)
     class_name = db.Column(db.String(50))
     ed = db.relationship('Educational', backref='edu', lazy='dynamic')
+
 
     def __init__(self, class_name):
         self.class_name = class_name

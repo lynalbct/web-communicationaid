@@ -3,10 +3,13 @@
 <title>Communication Aid</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js">
+    <link href="https://code.jquery.com/jquery-1.11.1.min.js">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="studenttable.css">
+    <link rel="stylesheet" href="student.css">
     <link rel="stylesheet" href="edit.css">
 
 <style>
@@ -48,12 +51,23 @@
             <div style="width:1000px; height: 400px">
                 <div id="edit">
 
-                    <form>
-                        <h2> Add Class </h2>
-                        <input type="text" id="class_name" placeholder="Class Name" />
-                        <button class="btn btn-sm btn-warning" style="background-color: #55acee" type="submit" onclick="window.location.href='/addstudents'">Add Class</button>
-                        <!-- <input type="button" id="save-btn" onclick="addstudent();" value="Add Student" /> -->
-                    </form>
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                    <form method = "post" action="/addstudents">
+                        <table>Child ID:<input id="c_id" name="c_id" type="integer"/></table>
+                        <table>First Name:<input id="fname_c" name="fname_c" type="text"/></table>
+                        <table>Last Name:<input id="lname_c" name="lname_c" type="text"/></table>
+                 <div class="panel-footer">
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="submit"><i>Save</i></button>
+                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/students'"><i class="glyphicon glyphicon-remove"></i></button>
+                        </span>
+                    </div>
+              </form>
+                  </tbody>
+                  </table>
+                </div>
 
                 </div>
             </div>

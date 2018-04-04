@@ -7,16 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Classroom</title>
+    <title>{% block title %}Students{% endblock %}</title>
 
 
     <link rel="stylesheet" href="{{ url_for('.static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('.static', filename='css/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ url_for('.static', filename='css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="studenttable.css">
+    <link rel="stylesheet" href="student.css">
 
 </head>
+
+
+{% block content %}
 <body>
     <div class=" bgimg container-fluid">
         <div class="row">
@@ -26,30 +29,33 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th colspan="1" style="text-align: center">Action</th>
-                                <th style="text-align: center">Class Name</th>
+                                <th colspan="2" style="text-align: center">Actions</th>
+                                <th style="text-align: center">Child ID</th>
+                                <th style="text-align: center">Name</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {% for Class in Class %}
+                            {% for Child in Child %}
                                 <tr>
-<!--                                     <td><a class="btn btn-sm btn-success" href="/editclass{{ Class.class_id }}"><span class="glyphicon glyphicon-pencil"></span></a></td> -->
-                                    <td><a class="btn btn-sm btn-danger confirmation" href="/deleteClass/{{ class.class_id }}"><span class="glyphicon glyphicon-trash"></span></a></td>
-                                    <td style="text-align: center">{{ Class.class_name }}</td>
+                                    <td><a class="btn btn-sm btn-success" href="/editstudents{{ Child.c_id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                    <td><a class="btn btn-sm btn-danger confirmation" href="/deletestudent/{{ Child.c_id }}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    <td style="text-align: center">{{ Child.c_id }}</td>
+                                    <td style="text-align: center">{{ Child.fname_c }}{{Child.lname_c }}</td>
 
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     <div class="col-md-6">
-                        <a class="btn btn-primary pull-left" href="addclass.html">Add</a>
+                       <a class="btn btn-primary pull-left" href="{{ url_for('addstudents') }}">Add</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+{% endblock %}
 
     <script type="text/javascript">
         var elems = document.getElementsByClassName('confirmation');
