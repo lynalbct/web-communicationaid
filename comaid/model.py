@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:walakokahibaw@localhost/db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:regards@localhost/db'
 app.config['SECRET_KEY'] = 'hard to guess string'
 db = SQLAlchemy(app)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -21,10 +21,10 @@ report = db.Table('report',
 
 class Account(db.Model):
     acc_id = db.Column(db.Integer, primary_key=True)
-    acc_type = db.Column(db.String(20), unique=True)
+    acc_type = db.Column(db.String(50), unique=True)
     username = db.Column(db.String(50), unique=True)
     email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(60), unique=True)
+    password = db.Column(db.String(150), unique=True)
 
     def __init__(self, acc_type, username, email, password):
         self.acc_type = acc_type

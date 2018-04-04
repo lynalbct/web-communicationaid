@@ -8,12 +8,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from flask_basicauth import BasicAuth
 from flask_cors import CORS
+import uuid
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
 basic_auth = BasicAuth(app)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:walakokahibaw@localhost/db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:regards@localhost/db'
 app.config['SECRET_KEY'] = 'hard to guess string'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -69,8 +70,8 @@ def getoneuser(acc_id):
 @app.route('/user', methods=['POST'])
 def createuser():
 	data = request.get_json()
-	hashed_password = generate_password_hash(data['password'], methods='sha256')
-	new_acc = Account(acc_type=str(uuid.uuid4()), username = data['username'], password = hashed_password)
+	hashed_password = generate_password_hash(data['password'])
+	new_acc = Account(acc_type=str(uuid.uuid4()), username = data['username'], password = hashed_password, email=data['email'])
 	db.session.add(new_acc)
 	db.session.commit()
 	return jsonify({'message' : 'New user created.'})
