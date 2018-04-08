@@ -1,4 +1,3 @@
-
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, request, url_for,redirect,send_from_directory
