@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, request, url_for,redirect,send_from_directory
 from sqlalchemy import *
-from model import Parent, Child, Account, db
+from model import Parent, Child, Account, Teacher, db
 import json
 import os
 
@@ -138,6 +138,36 @@ def edit_child(p_id):
 
     if request.method == "GET":
         return render_template('edit_c.html', p_id=int(p_id))
+
+@app.route('/teacher/<int:acc_id>', methods=['GET'])
+def teacher(acc_id):
+    myTeacher = Teacher.query.filter_by(acc_id=int(acc_id)).all()
+    # return jsonify({'message': 'Successfully updated!'})
+    return render_template('t_prof.html', myTeachert=myTeacher)
+
+@app.route('/edit_teacher/<int:acc_id>', methods=['GET','POST'])
+def edit_teacher(acc_id):
+    myTeacher = Teacher.query.filter_by(acc_id=int(acc_id)).first()
+
+    if request.method == "POST":
+
+        myTeacher.fname_t = request.form['fname_t']
+        myTeacher.lname_t = request.form['lname_t']
+        myTeacher.bday_t = request.form['bday_t']
+        myTeacher.specialty = request.form['specialty']
+        myTeacher.tel_num = request.form['tel_num']
+        myTeacher.add_t = request.form['add_p']
+
+        myTeacher = db.session.merge(myTeacher)
+        db.session.add(myTeacher)
+        db.session.commit()
+        print "hello success"
+        return redirect(url_for('parent', acc_id=int(acc_id)))
+
+    if request.method == "GET":
+        return render_template('edit_p.html', acc_id=int(acc_id))
+
+
 
 # @app.route('/edit_parent', method=['POST'])
 # def edit_parent():
