@@ -59,7 +59,7 @@
                 <div class=" col-md-9 col-lg-9 ">
                   <table class="table table-user-information">
                     <tbody>
-                    <form method="get" action = "/edit_child/1">
+                    <form method="get" action = "/edit_child/{{ p_id }}">
                         {% for child in myChild %}
                         <table>Name: {{ child.fname_c}} {{ child.lname_c}}</table>
                         <table>Birthdate: {{ child.bday_c}}</table>

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask import render_template, request, url_for,redirect,send_from_directory
+from flask import render_template, request, url_for,redirect,send_from_directory, session
 from sqlalchemy import *
 from model import Parent, Child, Account, Teacher, db
 import json
@@ -16,10 +16,11 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def welcome():
+    session['user'] = 'me'
     return render_template('welcome.html')
 
 
-@app.route('/user/<acc_id>', methods=['GET'])
+@app.route('/user', methods=['GET'])
 def getoneuser(acc_id):
     user = Account.query.filter_by(acc_id=acc_id).first()
     if not user:
@@ -59,11 +60,25 @@ def places():
 def clothes():
     return render_template('clothes.html')
 
-@app.route('/parent/<int:acc_id>', methods=['GET'])
+@app.route('/parent/<int:acc_id>')
 def parent(acc_id):
     myParent = Parent.query.filter_by(acc_id=int(acc_id)).all()
     # return jsonify({'message': 'Successfully updated!'})
     return render_template('p_prof.html', myParent=myParent)
+
+# @app.route('/parent/<int:acc_id>', methods=['GET'])
+# def api_parent(acc_id):
+#     myParent = Parent.query.filter_by(acc_id=acc_id).first()
+#     if not myParent:
+#         return jsonify({'message: "no user found"'})
+#     user_data = {}                          #container
+#     user_data['acc_id'] = myParent.acc_id
+#     user_data['fname_p'] = myParent.fname_p  #dictionary
+#     user_data['lname_p'] = myParent.lname_p
+#     user_data['bday_p'] = myParent.bday_p
+#     user_data['add_p'] = myParent.add_p
+#     return jsonify({'user': user_data})
+
 
 @app.route('/edit_parent/<int:acc_id>', methods=['GET','POST'])
 def edit_parent(acc_id):
@@ -139,15 +154,15 @@ def edit_child(p_id):
     if request.method == "GET":
         return render_template('edit_c.html', p_id=int(p_id))
 
-@app.route('/teacher/<int:acc_id>', methods=['GET'])
-def teacher(acc_id):
-    myTeacher = Teacher.query.filter_by(acc_id=int(acc_id)).all()
+@app.route('/teacher/<int:t_id>', methods=['GET'])
+def teacher(t_id):
+    myTeacher = Teacher.query.filter_by(t_id=int(t_id)).first()
     # return jsonify({'message': 'Successfully updated!'})
     return render_template('t_prof.html', myTeachert=myTeacher)
 
-@app.route('/edit_teacher/<int:acc_id>', methods=['GET','POST'])
-def edit_teacher(acc_id):
-    myTeacher = Teacher.query.filter_by(acc_id=int(acc_id)).first()
+@app.route('/edit_teacher/<int:t_id>', methods=['GET','POST'])
+def edit_teacher(t_id):
+    myTeacher = Teacher.query.filter_by(t_id=int(t_id)).first()
 
     if request.method == "POST":
 
@@ -156,16 +171,16 @@ def edit_teacher(acc_id):
         myTeacher.bday_t = request.form['bday_t']
         myTeacher.specialty = request.form['specialty']
         myTeacher.tel_num = request.form['tel_num']
-        myTeacher.add_t = request.form['add_p']
+        myTeacher.add_t = request.form['add_t']
 
         myTeacher = db.session.merge(myTeacher)
         db.session.add(myTeacher)
         db.session.commit()
         print "hello success"
-        return redirect(url_for('parent', acc_id=int(acc_id)))
+        return redirect(url_for('teacher', t_id=int(t_id)))
 
     if request.method == "GET":
-        return render_template('edit_p.html', acc_id=int(acc_id))
+        return render_template('edit_t.html', t_id=int(t_id))
 
 
 

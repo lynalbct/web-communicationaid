@@ -45,7 +45,7 @@
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Parent's Profile</h3>
+              <h3 class="panel-title">Teacher's Profile</h3>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -59,27 +59,28 @@
                 <div class=" col-md-9 col-lg-9 ">
                   <table class="table table-user-information">
                     <tbody>
-                    <form method="get" action = "/edit_teacher/1">
+                    <form method="get" action = "/edit_teacher/{{ t_id }}">
                         {% for teacher in myTeacher %}
-                        <table>Name: {{ teacher.fname_t}} {{ teacher.lname_t}}</table>
-                        <table>Birthdate: {{ teacher.bday_t}}</table>
-                       <table>Specialty: {{ teacher.specialty}}</table>
-                       <table>Contact Number: {{ teacher.tel_num}}</table>
-                       <table>Address: {{ teacher.add_t}}</table>
+                        <table>Name: {{ teacher.fname_t }} {{ teacher.lname_t }}</table>
+                        <table>Birthdate: {{ teacher.bday_t }}</table>
+                       <table>Specialty: {{ teacher.specialty }}</table>
+                       <table>Contact Number: {{ teacher.tel_num }}</table>
+                       <table>Address: {{ teacher.add_t }}</table>
                         {% endfor %}
+
+                 <div class="panel-footer">
+                        <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="submit"><i class="glyphicon glyphicon-edit"></i></button>
+                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/del_parent'"><i class="glyphicon glyphicon-remove"></i></button>
+                        </span>
+                    </div>
                     </form>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-                 <div class="panel-footer">
-                        <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
-                        <span class="pull-right">
-                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/edit_teacher/1'"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/del_teacher'"><i class="glyphicon glyphicon-remove"></i></button>
-                        </span>
-                    </div>
 
           </div>
         </div>

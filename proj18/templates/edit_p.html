@@ -37,10 +37,10 @@
                   <table class="table table-user-information">
                     <tbody>
                     <form method = "post" action="/edit_parent/{{ acc_id }}">
-                        <table>First Name:<input id="fname_p" name="fname_p" type="text"/></table>
-                        <table>Last Name:<input id="lname_p" name="lname_p" type="text"/></table>
-                        <table>Birthdate: <input id="bday_p" name="bday_p" type="date"/></table>
-                        <table>Address: <input id="add_p" name="add_p" type="text"/></table>
+                        <table>First Name:<input id="fname_c" name="fname_c" type="text"/></table>
+                        <table>Last Name:<input id="lname_c" name="lname_c" type="text"/></table>
+                        <table>Birthdate: <input id="bday_c" name="bday_c" type="date"/></table>
+                        <table>Diagnosis: <input id="diagnosis" name="diagnosis" type="text"/></table>
 
 
 
@@ -52,7 +52,7 @@
                         <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
                             <button class="btn btn-sm btn-warning" type="submit"><i>Save</i></button>
-                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/parent/{{ acc_id }}'"><i class="glyphicon glyphicon-remove"></i></button>
+                            <button class="btn btn-sm btn-warning" type="submit" onclick="window.location.href='/child/1'"><i class="glyphicon glyphicon-remove"></i></button>
                         </span>
                     </div>
               </form>
