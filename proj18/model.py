@@ -7,6 +7,7 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
+
 class Account(db.Model):
     acc_id = db.Column(db.Integer, primary_key=True)
     acc_type = db.Column(db.Integer, unique=True)
@@ -120,7 +121,7 @@ class Logs(db.Model):
     clicks = db.Column(db.Integer)
     log_date = db.Column(db.Date)
     log_time = db.Column(db.Time)
-    spec_id = db.Column(db.Integer, db.ForeignKey('Specifics.spec_num'))
+    spec_id = db.Column(db.Integer, db.ForeignKey('specifics.spec_num'))
 
     def __init__(self, clicks, log_date, log_time):
         self.clicks = clicks
@@ -165,12 +166,12 @@ class Items(db.Model):
 
 class Progress(db.Model):
     prog_num = db.Column(db.Integer, primary_key=True)
-    prog_name = db.Column(db.String(80), primary_key=True)
+    title = db.Column(db.String(200))
     details = db.Column(db.String(500))
     prog_date = db.Column(db.Date)
     prog_time = db.Column(db.Time)
     score = db.Column(db.Integer)
-    edu_id = db.Column(db.Integer, db.ForeignKey('Educational.ed_num'))
+    edu_id = db.Column(db.Integer, db.ForeignKey('educational.ed_num'))
 
     def __init__(self, details, prog_date, prog_time, score):
         self.details = details
