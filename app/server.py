@@ -12,7 +12,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @server.route('/parent')
 def parent():
-	return render_template('p_prof.html', myParent=myParent)
+	return render_template('p_prof.html')
 
 # if __name__ == "__main__":
 #     server.run(port=8000, debug=True)
