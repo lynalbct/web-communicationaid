@@ -10,10 +10,9 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 
-@server.route('/parent', methods=['GET'])
+@server.route('/parent')
 def parent():
-	if request.method == 'POST':
-        return render_template('p_prof.html', myParent=myParent)
+	return render_template('p_prof.html', myParent=myParent)
 
 # if __name__ == "__main__":
 #     server.run(port=8000, debug=True)
