@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
 <title>Welcome to Pic-A-Talk!</title>
-<link rel="shortcut icon" img src=url("static/images/PATicon.png") />
+<!-- href="{{ url_for('static', filename='css/agency.min.css') }}" -->
+<link rel="shortcut icon" img src={{ url_for('.static', filename='/images/PATicon.png') }} />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="static/css/w3.css">
-<link rel="stylesheet" href="static/css/font.css">
-<link rel="stylesheet" href="static/css/font-awesome.css">
-<link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="static/bootstrap/css/bootstrap-grid.css">
-<link rel="stylesheet" href="static/bootstrap/css/bootstrap-reboot.css">
-<link rel="stylesheet" href="static/bootstrap/js/bootstrap.bundle.js">
-<link rel="stylesheet" href="static/bootstrap/js/bootstrap.js">
-<link rel="stylesheet" href="static/css/agency.min.css">
+<link rel="stylesheet" href={{ url_for('.static', filename='css/w3.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/font.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/font.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/font-awesome.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/bootstrap.min.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/bootstrap-grid.css') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/bootstrap-reboot.css') }}>
+<link rel="javascript" href={{ url_for('.static', filename='bootstrap/js/bootstrap.bundle.js') }}>
+<link rel="javascript" href={{ url_for('.static', filename='bootstrap/js/bootstrap.js') }}>
+<link rel="stylesheet" href={{ url_for('.static', filename='css/agency.min.css') }}>
+<link rel="javascript" href={{ url_for('.static', filename='js/jQuery-2.1.4.min.js') }}>
+<link rel="javascript" href={{ url_for('.static', filename='js/jquery.min.js') }}>
+<link rel="javascript" href={{ url_for('.static', filename='js/jquery.js') }}>
+<!-- <link rel="javascript" href={{ url_for('.static', filename='js/app.js') }}> -->
+<script src="static/js/app.js" ></script>
 
 <style>
     .button {
@@ -29,23 +36,18 @@
   border-radius: 15px;
   box-shadow: 0 9px #999;
 }
-
 .button:hover {background-color: #262626}
-
 .button:active {
   background-color: #262626;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-
-
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
     height: 100%;
     color: #777;
     line-height: 1.8;
 }
-
 /* Create a Parallax Effect */
 .bgimg-1, .bgimg-2, .bgimg-3 {
     background-attachment: fixed;
@@ -53,22 +55,18 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 /* First image (Logo. Full height) */
 .bgimg-1 {
     background-image: url('static/images/PATbg5.jpg');
     min-height: 100%;
 }
-
 /* Second image (Portfolio) */
 .bgimg-2 {
     background-image: url("static/images/origami.jpg");
     min-height: 400px;
 }
-
 .w3-wide {letter-spacing: 10px;}
 .w3-hover-opacity {cursor: pointer;}
-
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
     .bgimg-1, .bgimg-2, .bgimg-3 {
@@ -80,6 +78,7 @@ body, html {
 
 <!-- Navbar (sit on top) -->
 <!-- Sidebar/menu -->
+
 <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">About</a>
   <a href="#login" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Login</a>
@@ -135,8 +134,8 @@ body, html {
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container w3-padding-64">
  <form>
-    <center><label class="sr-only" for="email"></label></center>
-    <center><input type="email" id="email" placeholder="Email"></center>
+    <center><label class="sr-only" for="username"></label></center>
+    <center><input type="text" id="username" placeholder="Username"></center>
     <center><label class="sr-only" for="password"></label></center>
     <center><input type="password" id="password" placeholder="Password"></center>
   <div class="checkbox">
@@ -144,14 +143,76 @@ body, html {
       <input type="checkbox"> Remember me
     </label></center>
   </div>
-    <center><button class="button" type="submit" onclick="login();">Login</button></center>
+    <center><button class="button" id="btn-login" type="submit" onclick="login();" >Login</button></center>
 
     <center>Don't have an account yet?</center>
     <center><br><a class="btn btn-default" href="register.html" role="button">SIGN UP!</a></center>
 </form>
-    <script src="app.js"></script>
+   
 <br>
-    <br>
+    <br> 
+<script>
+  
+
+// function login() {
+//   alert("");
+//     $.ajax({
+//         url: "http://mighty-badlands-16603/api/login",
+//         contentType: 'application/json; charset=utf-8',
+//         data: JSON.stringify({
+//             'username': $("#username").val(),
+//             'password': $("#password").val()
+//         }),
+//         method: "POST",
+//         dataType: "json",
+//         crossDomain: true,
+//         headers: {
+//             'Authorization' : 'Basic ' + btoa(username + ':' + password)
+//         },
+//          error: function (e) {
+//             console.log('error');
+//             alert("error!")
+//         },
+//         success: function(resp) {
+//             console.log("success");
+//             localStorage.setItem('token', resp.token);
+//             window.location.replace('mode.html');
+//             alert.message('login successful!');
+//         }
+       
+//     })
+// }
+// function login() {
+
+//   $.ajax(
+//     {
+//       url: 'http://mighty-badlands-16603/api/login',
+//       contentType: 'application/json; charset=utf-8',
+//       data: JSON.stringify({
+//         'username': $("#username").val(),
+//         'password': $("#password").val()
+//       }),
+//       type: "POST",
+//       dataType: "json",
+//       crossDomain: true,
+//       headers: {'Authorization' : 'Basic ' + btoa(username + ':' + password)},
+//       error: function (e) {
+//       },
+//       success: function (resp) {
+//         if (resp.status == 'ok') {
+//           localStorage.setItem('token', resp.token);
+//           window.location.replace('mode.html?username='+resp.message+'/');
+
+//         }
+//         else {
+//           alert(resp.message)
+//         }
+//       }
+//     });
+// }
+
+
+    </script>
     <br>
   <!-- Team -->
     <section class="bg-light" id="team">
@@ -190,7 +251,7 @@ body, html {
         <div class="row">
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="static/images/lyn.jpg" alt="">
+              <img class="mx-auto rounded-circle" src="static/images/lyn3.jpg" alt="">
               <h4>Lyn Albacete</h4>
               <p class="text-muted">Web Backend</p>
               <ul class="list-inline social-buttons">
@@ -497,8 +558,10 @@ function w3_close() {
 }
 
 
+
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script> -->
+
 <!--
 To use this code on your website, get a free API key from Google.
 Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp

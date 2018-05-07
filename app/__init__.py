@@ -5,28 +5,25 @@ from sqlalchemy import *
 from flask_mail import Mail
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-# from config import dbstring
 import psycopg2
 from flask_compress import Compress
+from flask_marshmallow import Marshmallow
+from flask_cors import CORS
+
+app = Flask(__name__)
+ma = Marshmallow(app)
+CORS(app, headers=['Content-Type'])
+
+app.config['SECRET_KEY'] = 'hard to guess string'
+app.config['CORS_HEADERS'] = "Content-Type, Authorization"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-server = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:walakokahibaw@localhost/db'
-# server.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-server.config['SECRET_KEY'] = 'hard to guess string'
-server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+mail = Mail(app)
+Compress(app)
 
-
-
-mail = Mail(server)
-Compress(server)
 from app import server
-manager = Manager(server)
-
-
-
-
-
+manager = Manager(app)
 # createTables()	
-server.debug = True
+app.debug = True
